@@ -1,12 +1,12 @@
 workspace:
   base: /go
-  path: src/github.com/drone/drone
+  path: src/github.com/tengzhexiao/drone
 
 pipeline:
   test:
     image: golang:1.8
     commands:
-      - go get -u github.com/drone/drone-ui/dist
+      - go get -u github.com/tengzhexiao/drone-ui/dist
       - go get -u golang.org/x/tools/cmd/cover
       - go get -u golang.org/x/net/context
       - go get -u golang.org/x/net/context/ctxhttp
@@ -20,7 +20,7 @@ pipeline:
       - DATABASE_DRIVER=postgres
       - DATABASE_CONFIG=host=postgres user=postgres dbname=postgres sslmode=disable
     commands:
-      - go test github.com/drone/drone/store/datastore
+      - go test github.com/tengzhexiao/drone/store/datastore
 
   test_mysql:
     image: golang:1.8
@@ -28,7 +28,7 @@ pipeline:
       - DATABASE_DRIVER=mysql
       - DATABASE_CONFIG=root@tcp(mysql:3306)/test?parseTime=true
     commands:
-      - go test github.com/drone/drone/store/datastore
+      - go test github.com/tengzhexiao/drone/store/datastore
 
   build:
     image: golang:1.8
@@ -39,7 +39,7 @@ pipeline:
 
   publish_server_alpine:
     image: plugins/docker
-    repo: drone/drone
+    repo: tengzhexiao/drone
     dockerfile: Dockerfile.alpine
     secrets: [ docker_username, docker_password ]
     tag: [ alpine ]
@@ -98,7 +98,7 @@ pipeline:
 
   release_server_alpine:
     image: plugins/docker
-    repo: drone/drone
+    repo: tengzhexiao/drone
     dockerfile: Dockerfile.alpine
     secrets: [ docker_username, docker_password ]
     tag: [ 0.8-alpine ]
@@ -116,7 +116,7 @@ pipeline:
 
   release_server:
     image: plugins/docker
-    repo: drone/drone
+    repo: tengzhexiao/drone
     secrets: [ docker_username, docker_password ]
     tag: [ 0.8, 0.8.4 ]
     when:
